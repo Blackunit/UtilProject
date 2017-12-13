@@ -43,6 +43,12 @@ public class Command {
         executeBySu(list);
     }
 
+    /**
+     * 无需su权限
+     * @param commands
+     * @param limitTime
+     * @return
+     */
     public String execute(List<String> commands, long limitTime) {
         long costTime = 0;//已经消耗的时间
         StringBuilder sb = new StringBuilder();

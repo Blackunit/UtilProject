@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 import java.util.Map;
 
 /**
+ * 扩展性不强，需要重新设计，需要更换使用Okhttp时怎么办，数据需要加解密，验证怎么办
  * 自己简单的对HttpURLConnection进行了封装
  * Created by DX on 2017/7/4.
  */

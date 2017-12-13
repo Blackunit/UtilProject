@@ -2,6 +2,7 @@ package com.example.dx.utilproject.log;
 
 import android.util.Log;
 
+// TODO: 2017/11/10 这个类的扩展性不强，需要重新设计，万一还需要以网络的方式输出日志怎么办？
 public class LogUtil {
     private static final int VERBOSE=1;
     private static final int DEBUG=2;
@@ -10,8 +11,10 @@ public class LogUtil {
     private static final int ERROR=5;
     private static final int WTF=6;
     public static final int NOTHING=7;
-    private static final int LEVEL =VERBOSE;//通过调整LEVEL的值，控制日志的输出
-    private static final boolean PRINT_THROWABLE=true;//控制抛出的异常日志是否需要输出
+    //通过调整LEVEL的值，控制日志的输出
+    private static final int LEVEL =VERBOSE;
+    //控制抛出的异常日志是否需要输出
+    private static final boolean PRINT_THROWABLE=true;
 
     public static void v(String tag,String msg){
         if (LEVEL <=VERBOSE){
