@@ -31,6 +31,8 @@ public boolean saveAppend(String data, boolean logTime) {
 ### 网络访问工具类  
 **SimpleHttp.java**  
 简单的对HttpURLConnection进行了封装  
+**SimpleHttp2.java**  
+使用AsyncTask类简单的对HttpURLConnection进行了封装,方便线程切换. 
 ### 绑定控件id  
 **BindID.java**  
 使用注解和反射的方式绑定id,用于替代findViewById()

@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -23,8 +21,9 @@ import java.util.Map;
  */
 
 public class SimpleHttp {
-    private static final boolean printLog = true;//是否允许输出日志
-    private static final String defaultCharset = "UTF-8";
+    //是否允许输出日志
+    private static final boolean PRINT_LOG = true;
+    private static final String DEFAULT_CHARSET = "UTF-8";
     private static final String TAG = "SimpleHttp";
     private int mConnTimeOut = 60000;
     private int mReadTimeOut = 2 * 60000;
@@ -46,7 +45,7 @@ public class SimpleHttp {
     }
 
     private void logI(String msg) {
-        if (printLog) {
+        if (PRINT_LOG) {
             Log.i(TAG, msg);
         }
     }
@@ -66,11 +65,10 @@ public class SimpleHttp {
     }
 
     private String encodeStr(String data) {
-        return encodeStr(data, defaultCharset);
+        return encodeStr(data, DEFAULT_CHARSET);
     }
 
     private String encodeParams(Map<String, String> params) {
-        String submit = "";
         StringBuilder sb = new StringBuilder();
         if (params != null && params.size() > 0) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -79,9 +77,10 @@ public class SimpleHttp {
                 sb.append(encodeStr(entry.getValue()));
                 sb.append("&");
             }
-            sb.deleteCharAt(sb.lastIndexOf("&"));//移除最后一个多余的"&"符号
+            //移除最后一个多余的"&"符号
+            sb.deleteCharAt(sb.lastIndexOf("&"));
         }
-        return submit;
+        return sb.toString();
     }
 
     private String encodeUrl(String urlStr, Map<String, String> params) {
@@ -105,15 +104,15 @@ public class SimpleHttp {
             URL url = new URL(urlStr);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Accept-Charset", defaultCharset);
-            connection.setRequestProperty("contentType", defaultCharset);
+            connection.setRequestProperty("Accept-Charset", DEFAULT_CHARSET);
+            connection.setRequestProperty("contentType", DEFAULT_CHARSET);
             connection.setReadTimeout(mReadTimeOut);
             connection.setConnectTimeout(mConnTimeOut);
             int code = connection.getResponseCode();
             if (code == 200) {
                 InputStream is = connection.getInputStream();
                 StringBuilder sb = new StringBuilder();
-                reader = new BufferedReader(new InputStreamReader(is, defaultCharset));
+                reader = new BufferedReader(new InputStreamReader(is, DEFAULT_CHARSET));
                 while ((result = reader.readLine()) != null) {
                     sb.append(result);
                 }
@@ -126,8 +125,9 @@ public class SimpleHttp {
             logE("get:url=" + urlStr);
             logE(e.toString());
         } finally {
-            if (connection != null)
+            if (connection != null) {
                 connection.disconnect();
+            }
             if (reader != null) {
                 try {
                     reader.close();
@@ -155,7 +155,7 @@ public class SimpleHttp {
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setConnectTimeout(mConnTimeOut);
-            connection.setRequestProperty("Content-Type", "application/json; charset=" + defaultCharset);//application/x-www-form-urlencoded
+            connection.setRequestProperty("Content-Type", "application/json; charset=" + DEFAULT_CHARSET);//application/x-www-form-urlencoded
             if (data!=null) {
                 OutputStream os = connection.getOutputStream();
                 os.write(data.getBytes());
@@ -165,7 +165,7 @@ public class SimpleHttp {
             int code = connection.getResponseCode();
             if (code == 200) {
                 InputStream is = connection.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is, defaultCharset));
+                BufferedReader br = new BufferedReader(new InputStreamReader(is, DEFAULT_CHARSET));
                 String line;
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
@@ -180,8 +180,9 @@ public class SimpleHttp {
             logE("post:url=" + urlStr);
             logE(e.toString());
         } finally {
-            if (connection != null)
+            if (connection != null) {
                 connection.disconnect();
+            }
         }
         return result;
     }
