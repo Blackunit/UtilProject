@@ -16,44 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class SimpleHttp2 {
-    /**
-     * SimpleHttp2的简单使用demo
-     */
-    @Deprecated
-    private void demo(){
-        //这个方法没用,直接删除,没有影响
-        String url="http://192.168.121.70:8080/IntellijServlet/test";
-        Map<String,String> params=new HashMap<>();
-        params.put("name","DX");
-        params.put("age","24");
-        List<User> users=new ArrayList<>();
-        users.add(new User("DX2",25));
-        users.add(new User("中文",20));
-        new SimpleHttp2().setTimeout(20000).post(url, params,users, new SimpleHttp2.Listener<List<User>>() {
-            @Override
-            public void onStart() {
-                //onStart方法可不用重写,如果需要在http访问之前在ui线程做点事情,可以在这个方法中进行
-                Log.wtf(TAG,Thread.currentThread().getName()+"-->onStart");
-            }
-
-            @Override
-            public List<User> onParse(String response) {
-                Log.wtf(TAG,Thread.currentThread().getName()+"-->response="+response);
-                return new Gson().fromJson(response,new TypeToken<List<User>>(){}.getType());
-            }
-
-            @Override
-            public void onSuccess(List<User> user) {
-                Log.wtf(TAG,Thread.currentThread().getName()+"-->onSuccess="+user.toString());
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.wtf(TAG,Thread.currentThread().getName()+"-->onError="+error);
-            }
-        });
-    }
-
     private static final String TAG = "SimpleHttp2";
     /**
      * 是否允许输出日志
@@ -85,7 +47,7 @@ public class SimpleHttp2 {
         public abstract void onSuccess(Result result);
         /**
          * 访问出错,该方法运行在UI线程中
-         * @param error 用户自己解析的结果
+         * @param error 网络访问出现问题,给出错误信息
          */
         public abstract void onError(String error);
     }
