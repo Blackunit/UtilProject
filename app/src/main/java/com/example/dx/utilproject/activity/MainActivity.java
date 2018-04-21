@@ -1,36 +1,21 @@
-package com.example.dx.utilproject;
+package com.example.dx.utilproject.activity;
 
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Choreographer;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.dx.utilproject.command.Command;
+import com.example.dx.utilproject.R;
 import com.example.dx.utilproject.database.DatabaseManager;
-import com.example.dx.utilproject.file.FileUtil;
 import com.example.dx.utilproject.handlers.MyHandler;
 import com.example.dx.utilproject.log.FileLogUtil;
-import com.example.dx.utilproject.log.LogUtil;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
