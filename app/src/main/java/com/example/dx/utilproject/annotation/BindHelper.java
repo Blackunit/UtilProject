@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 /**
  * 参考ButterKnife,使用@BindID注解代替findViewById
  * 使用方式eg:
- * //@BindID(R.id.xxx)              //1
+ * @BindID(R.id.xxx)                //1
  * Button btnTest;
  * ...
  * ...onCreate(...){
